@@ -1,0 +1,14 @@
+name: Makefile CI
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Install dependencies
+      run: make init
+    - name: Build
+      run: make build
