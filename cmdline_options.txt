@@ -1,0 +1,14 @@
+Usage: hello-world.py [OPTIONS]
+
+  Click template example
+
+  The docstring entered here will be shown as part of the '--help' output.
+
+Options:
+  -d, --divisor INTEGER
+  --logfile / --no-logfile        optionally log to a file (default is to
+                                  console only)
+  --logdir PATH                   directory for the logfiles
+  -l, --loglevel [CRITICAL|ERROR|WARNING|INFO|DEBUG]
+  --version                       Show the version and exit.
+  --help                          Show this message and exit.

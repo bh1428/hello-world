@@ -1,0 +1,16 @@
+Python 3.13.1 (tags/v3.13.1:0671451, Dec  3 2024, 19:06:28) [MSC v.1942 64 bit (AMD64)]
+Build time: 2025-01-15 22:48:59.805468+01:00
+
+Package                   Version
+------------------------- --------
+altgraph                  0.17.4
+click                     8.1.8
+colorama                  0.4.6
+packaging                 24.2
+pefile                    2023.2.7
+pip                       24.3.1
+pyinstaller               6.11.1
+pyinstaller-hooks-contrib 2024.11
+pywin32-ctypes            0.2.3
+setuptools                75.8.0
+uv                        0.5.19
