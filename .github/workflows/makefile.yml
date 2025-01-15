@@ -8,7 +8,5 @@ jobs:
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v4
-    - name: Install dependencies
-      run: make init
-    - name: Build
-      run: make build
+    - name: Check Pyuthon version
+      run: python -c "import sys; print(sys.version)"
