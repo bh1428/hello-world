@@ -13,7 +13,7 @@ import click
 
 import application
 
-__version__ = "2025.1.15"
+__version__ = "2025.1.16"
 
 # logging configuration
 LogConfigType = dict[str, tp.Union[tp.Any, dict[str, tp.Union[tp.Any, dict[str, tp.Any]]]]]
