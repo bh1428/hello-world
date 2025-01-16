@@ -1,4 +1,4 @@
-name: Makefile CI
+name: Build executable
 
 on:
   workflow_dispatch:
@@ -8,6 +8,7 @@ env:
   ICON_FILE: images/python.ico
   BUILD_TARGET: dist
   BUILD_INFO: build_info.txt
+  CMDLINE_OPTIONS : cmdline_options.txt
 
 jobs:
   build:
@@ -22,7 +23,7 @@ jobs:
         cache-dependency-glob: |
           **/*requirements.txt
           **/pyproject.toml
-    - name: Install the project
+    - name: Install the project environment
       run: |
         uv venv  
         uv pip sync dev-requirements.txt
@@ -33,9 +34,10 @@ jobs:
         pyinstaller --version-file "${env:SCRIPT_NAME}_info.txt" --onefile --icon="${env:ICON_FILE}" "${env:SCRIPT_NAME}.py"
         python -c "import sys; import datetime; print(f'Python {sys.version}'); print(f'Build time: {datetime.datetime.now().astimezone()}\n')" > "${env:BUILD_TARGET}\${env:BUILD_INFO}"
         uv pip list >> "${env:BUILD_TARGET}\${env:BUILD_INFO}"
+        python "${env:SCRIPT_NAME}.py" --help > "${env:BUILD_TARGET}\${env:CMDLINE_OPTIONS}"
     - name: Upload executable
       uses: actions/upload-artifact@v4
       with:
-        name: ${{ env.SCRIPT_NAME }}
+        name: ${{env.SCRIPT_NAME}}
         path: dist
 
