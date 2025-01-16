@@ -22,12 +22,14 @@
 *.py                text diff=python
 *.toml              text
 *.txt               text
+*.yml               text
 makefile            text
 
 #
 # Linux files which always have LF line endings at checkout
 #
 *requirements.txt   text eol=lf
+.python-version     text eol-lf
 
 #
 # Never perform LF normalization
