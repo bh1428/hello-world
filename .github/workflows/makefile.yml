@@ -5,6 +5,7 @@ on:
 
 env:
   SCRIPT_NAME: hello-world
+  ICON_FILE: images/python.ico
 
 jobs:
   build:
@@ -18,9 +19,12 @@ jobs:
       run: |
         uv venv  
         uv pip sync dev-requirements.txt
-    - name: Create executable
+    - name: Build executable
       run: |
-        .venv\Scripts\python.exe mk_file_version_info.py --out "${env:SCRIPT_NAME}_info.txt" "${env:SCRIPT_NAME}.py"
+        .venv\Scripts\Activate.ps1
+        python.exe mk_file_version_info.py --out "${env:SCRIPT_NAME}_info.txt" "${env:SCRIPT_NAME}.py"
+        pyinstaller.exe --version-file "${env:SCRIPT_NAME}_info.txt" --onefile --icon="${env:ICON_FILE}" "${env:SCRIPT_NAME}.py"
     - name: List directory
       run: |
         dir
+        dir dist
