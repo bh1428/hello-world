@@ -3,6 +3,9 @@ name: Makefile CI
 on:
   workflow_dispatch:
 
+env:
+  SCRIPT_NAME: hello-world
+
 jobs:
   build:
     runs-on: windows-latest
@@ -15,3 +18,9 @@ jobs:
       run: |
         uv venv  
         uv pip sync dev-requirements.txt
+    - name: Create executable
+      run: |
+        uv run mk_file_version_info.py --out "${env:SCRIPT_NAME}_info.txt" "${env:SCRIPT_NAME}.py"
+    - name: List directory
+      run: |
+        dir
