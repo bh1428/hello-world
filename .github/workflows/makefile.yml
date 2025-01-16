@@ -7,7 +7,7 @@ env:
   SCRIPT_NAME: hello-world
   ICON_FILE: images/python.ico
   BUILD_TARGET: dist
-  BUILD_INFO: ${{ env.BUILD_TARGET }}\build_info.txt
+  BUILD_INFO: build_info.txt
 
 jobs:
   build:
@@ -31,8 +31,8 @@ jobs:
         .venv\Scripts\Activate.ps1
         python mk_file_version_info.py --out "${env:SCRIPT_NAME}_info.txt" "${env:SCRIPT_NAME}.py"
         pyinstaller --version-file "${env:SCRIPT_NAME}_info.txt" --onefile --icon="${env:ICON_FILE}" "${env:SCRIPT_NAME}.py"
-        python -c "import sys; import datetime; print(f'Python {sys.version}'); print(f'Build time: {datetime.datetime.now().astimezone()}\n')" > "${env:BUILD_INFO}"
-        uv pip list >> "${env:BUILD_INFO}"
+        python -c "import sys; import datetime; print(f'Python {sys.version}'); print(f'Build time: {datetime.datetime.now().astimezone()}\n')" > "${env:BUILD_TARGET}\${env:BUILD_INFO}"
+        uv pip list >> "${env:BUILD_TARGET}\${env:BUILD_INFO}"
     - name: Upload executable
       uses: actions/upload-artifact@v4
       with:
