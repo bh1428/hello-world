@@ -4,6 +4,7 @@ authors = [
   { name="Ben Hattem", email="benghattem@gmail.com" },
 ]
 description = "Say hello to the world!"
+readme = "README.md"
 requires-python = "==3.13"
 classifiers = [
     "Development Status :: 5 - Production/Stable",

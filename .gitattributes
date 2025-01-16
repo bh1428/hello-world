@@ -19,6 +19,7 @@
 # Always perform LF normalization
 #
 *.json              text
+*.md                text diff=markdown
 *.py                text diff=python
 *.toml              text
 *.txt               text
