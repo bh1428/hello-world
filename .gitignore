@@ -199,3 +199,4 @@ cython_debug/
 # Additional files
 #
 hello-world_info.txt
+version.iss

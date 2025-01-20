@@ -26,9 +26,12 @@ PYINSTALLER := $(VENV)\pyinstaller
 BUILD_TARGET := dist
 BUILD_INFO := build_info.txt
 CMDLINE_OPTIONS := cmdline_options.txt
+INNO := "C:\Program Files (x86)\Inno Setup 6\Compil32.exe"
+INNO_SETUP = "setup.iss"
+INNO_VERSION = "version.iss"
 
 
-all: init
+all: sync
 
 .NOTPARALLEL:
 
@@ -73,7 +76,9 @@ list: $(VENV_ACTIVATE)
 .PHONY: build
 build: $(VENV_ACTIVATE)
 	$(VENV_PYTHON) mk_file_version_info.py --out "$(SCRIPT_NAME)_info.txt" "$(SCRIPT_NAME).py"
-	$(PYINSTALLER) --version-file "$(SCRIPT_NAME)_info.txt" --onefile --icon="$(ICON_FILE)" "$(SCRIPT_NAME).py"
+	$(PYINSTALLER) --version-file "$(SCRIPT_NAME)_info.txt" --contents-directory lib --icon=$(ICON_FILE) $(SCRIPT_NAME).py
 	$(VENV_PYTHON) -c "import sys; import datetime; print(f'Python {sys.version}'); print(f'Build time: {datetime.datetime.now().astimezone()}\n')" > "$(BUILD_TARGET)\$(BUILD_INFO)"
 	$(UV) pip list >> "$(BUILD_TARGET)\$(BUILD_INFO)"
 	$(VENV_PYTHON) "$(SCRIPT_NAME).py" --help > "$(BUILD_TARGET)\$(BUILD_INFO)"
+	$(VENV_PYTHON) -c "import datetime as dt; ts=dt.datetime.now().strftime('%%Y.%%m.%%d.%%H%%M%%S'); print(f'#define MyAppVersion \"{ts}\"')" > $(INNO_VERSION)
+	$(INNO) /cc $(INNO_SETUP)
