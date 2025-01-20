@@ -18,12 +18,14 @@
 #
 # Always perform LF normalization
 #
+*.iss               text
 *.json              text
 *.md                text diff=markdown
 *.py                text diff=python
 *.toml              text
 *.txt               text
 *.yml               text
+LICENSE             text
 makefile            text
 
 #
