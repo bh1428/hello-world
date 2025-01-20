@@ -11,7 +11,6 @@ permissions:
 
 env:
   SCRIPT_NAME: hello-world
-  GH_TOKEN: ${{ github.token }}
 
 jobs:
   build:
@@ -24,6 +23,8 @@ jobs:
         New-Item -Path dist -ItemType dir -Force
         Copy-Item *.py -Destination dist
     - name: Create release
+      env:
+        GH_TOKEN: ${{ github.token }}
+        TAG: ${{ github.ref_name }}
       run: |
-        gh release create ${{ github.ref_name }} ./dist/application.py
-
+        gh release create ${env:TAG} --title ="${env:GITHUB_REPOSITORY} ${env:TAG#v}" --generate-notes ./dist/application.py
