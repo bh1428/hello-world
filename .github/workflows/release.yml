@@ -23,9 +23,9 @@ jobs:
     - name: Build executable
       run: |
         New-Item -Path dist -ItemType dir -Force
-        Compress-Archive -Path *.py -DestinationPath "dist/${env:RELEASE_FILE}"
+        Compress-Archive -Path *.py -DestinationPath "./dist/${env:RELEASE_FILE}"
     - name: Create release
       env:
         GH_TOKEN: ${{ github.token }}
       run: |
-        gh release create ${env:TAG} --title "${env:TAG}" --generate-notes "dist/${env:RELEASE_FILE}"
+        gh release create ${env:TAG} --title "${env:TAG}" --generate-notes "./dist/${env:RELEASE_FILE}"
