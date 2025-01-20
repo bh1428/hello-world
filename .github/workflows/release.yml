@@ -2,6 +2,9 @@ name: Release asset
 
 on:
   workflow_dispatch:
+  push:
+    tags:
+      - release*
 
 env:
   SCRIPT_NAME: hello-world
