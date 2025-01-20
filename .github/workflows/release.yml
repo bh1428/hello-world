@@ -22,5 +22,5 @@ jobs:
         Copy-Item *.py -Destination dist
     - name: Create release
       run: |
-        gh release create ${{ github.ref_name }} ./dist/*
+        gh release create ${{ github.ref_name }} ./dist/*.py
 
