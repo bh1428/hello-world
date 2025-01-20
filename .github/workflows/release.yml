@@ -27,4 +27,4 @@ jobs:
         GH_TOKEN: ${{ github.token }}
         TAG: ${{ github.ref_name }}
       run: |
-        gh release create ${env:TAG} --title ="${env:GITHUB_REPOSITORY} ${env:TAG#v}" --generate-notes ./dist/application.py
+        gh release create ${env:TAG} --title "${env:GITHUB_REPOSITORY} ${env:TAG}" --generate-notes ./dist/application.py
