@@ -17,12 +17,11 @@ SCRIPT_NAME := hello-world
 ICON_FILE := images/python.ico
 
 # names (directories & files)
+UV := uv
 VENV_DIR := .venv
-PYTHON := "C:\Program Files\Python313\python.exe"
 VENV := .\$(VENV_DIR)\Scripts
 VENV_ACTIVATE := $(VENV)\activate.bat
-VENV_PYTHON := $(VENV)\python.exe
-UV := $(VENV)\uv.exe
+VENV_PYTHON := $(VENV)\python
 
 
 all: init
@@ -32,9 +31,7 @@ all: init
 init: $(VENV_ACTIVATE)
 
 $(VENV_ACTIVATE):
-	$(PYTHON) -m venv $(VENV_DIR)
-	$(VENV_PYTHON) -m pip install pip --upgrade
-	$(VENV_PYTHON) -m pip install uv
+	$(UV) venv
     ifeq (,$(wildcard requirements.txt))
 		$(UV) pip compile -o requirements.txt pyproject.toml
     endif
@@ -51,8 +48,7 @@ dev-requirements.txt: $(VENV_ACTIVATE) pyproject.toml
 
 .PHONY: upgrade_uv
 upgrade_uv: $(VENV_ACTIVATE)
-	$(VENV_PYTHON) -m pip install pip --upgrade
-	$(VENV_PYTHON) -m pip install uv --upgrade
+	$(UV) self update
 
 .PHONY: upgrade_requirements
 upgrade_requirements: $(VENV_ACTIVATE)
