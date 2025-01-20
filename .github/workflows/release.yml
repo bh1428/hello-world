@@ -12,7 +12,7 @@ permissions:
 env:
   SCRIPT_NAME: hello-world
   TAG: ${{ github.ref_name }}
-  RELEASE_FILE: "release_${env:TAG}.zip"
+  RELEASE_FILE: "release_${{ TAG }}.zip"
 
 jobs:
   build:
