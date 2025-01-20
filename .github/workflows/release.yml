@@ -6,6 +6,9 @@ on:
     tags:
       - release*
 
+permissions:
+  contents: write
+
 env:
   SCRIPT_NAME: hello-world
   GH_TOKEN: ${{ github.token }}
