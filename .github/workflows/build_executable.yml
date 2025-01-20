@@ -11,7 +11,7 @@ env:
   ICON_FILE: images/python.ico
   BUILD_TARGET: dist
   BUILD_INFO: build_info.txt
-  CMDLINE_OPTIONS : cmdline_options.txt
+  CMDLINE_OPTIONS: cmdline_options.txt
 
 jobs:
   build:

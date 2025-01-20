@@ -22,6 +22,10 @@ VENV_DIR := .venv
 VENV := .\$(VENV_DIR)\Scripts
 VENV_ACTIVATE := $(VENV)\activate.bat
 VENV_PYTHON := $(VENV)\python
+PYINSTALLER := $(VENV)\pyinstaller
+BUILD_TARGET := dist
+BUILD_INFO := build_info.txt
+CMDLINE_OPTIONS := cmdline_options.txt
 
 
 all: init
@@ -65,3 +69,11 @@ upgrade_venv: upgrade_uv upgrade_requirements sync
 .PHONY: list
 list: $(VENV_ACTIVATE)
 	$(UV) pip list
+
+.PHONY: build
+build: $(VENV_ACTIVATE)
+	$(VENV_PYTHON) mk_file_version_info.py --out "$(SCRIPT_NAME)_info.txt" "$(SCRIPT_NAME).py"
+	$(PYINSTALLER) --version-file "$(SCRIPT_NAME)_info.txt" --onefile --icon="$(ICON_FILE)" "$(SCRIPT_NAME).py"
+	$(VENV_PYTHON) -c "import sys; import datetime; print(f'Python {sys.version}'); print(f'Build time: {datetime.datetime.now().astimezone()}\n')" > "$(BUILD_TARGET)\$(BUILD_INFO)"
+	$(UV) pip list >> "$(BUILD_TARGET)\$(BUILD_INFO)"
+	$(VENV_PYTHON) "$(SCRIPT_NAME).py" --help > "$(BUILD_TARGET)\$(BUILD_INFO)"
