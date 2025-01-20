@@ -11,6 +11,8 @@ permissions:
 
 env:
   SCRIPT_NAME: hello-world
+  TAG: ${{ github.ref_name }}
+  RELEASE_FILE: "release_${env:TAG}.zip"
 
 jobs:
   build:
@@ -21,10 +23,9 @@ jobs:
     - name: Build executable
       run: |
         New-Item -Path dist -ItemType dir -Force
-        Copy-Item *.py -Destination dist
+        Compress-Archive -Path *.py -DestinationPath "dist/${env:RELEASE_FILE}"
     - name: Create release
       env:
         GH_TOKEN: ${{ github.token }}
-        TAG: ${{ github.ref_name }}
       run: |
-        gh release create ${env:TAG} --title "${env:TAG}" --generate-notes ./dist/application.py
+        gh release create ${env:TAG} --title "${env:TAG}" --generate-notes "dist/${env:RELEASE_FILE}"
